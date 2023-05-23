@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +25,13 @@ namespace lista_zadan
     {
         int numerZadania = 1;
         BindingList<Task> Tasks = new BindingList<Task>();
-        
-        public MainWindow()
+        BindingList<Task> FilteredTasks = new BindingList<Task>();
+
+        public MainWindow() 
         {
             InitializeComponent();
             taskList.ItemsSource = Tasks;
+            filteredTaskList.ItemsSource = FilteredTasks;
             
         }
 
@@ -35,6 +39,7 @@ namespace lista_zadan
         {
             String nazwaZadania = taskName.Text.ToString(); 
             String kategoriaZadania = taskCategory.Text.ToString();
+
             DateTime terminZadania = (DateTime)taskDeadline.SelectedDate;
 
             TimeSpan tS = terminZadania.Subtract(DateTime.Now);
@@ -42,12 +47,59 @@ namespace lista_zadan
 
             Tasks.Add(new Task(numerZadania, nazwaZadania, kategoriaZadania, terminZadania, pozostalyCzas));
             numerZadania++;
-        }
+
+            putCategoryIntoComboBox(sender, e);
+
+            FilteredTasks.Clear();
+        }   
 
 
         private void deleteTask(object sender, RoutedEventArgs e)
         {
             Tasks.RemoveAt(taskList.SelectedIndex);
+            FilteredTasks.Clear();
+        }
+
+
+        private void putCategoryIntoComboBox(object sender, RoutedEventArgs e)
+        {
+
+            List<string> items = new List<string>();
+
+            foreach (var row in taskList.Items)
+            {
+                string value = ((Task)row).Category.ToString();
+
+                if(!items.Contains(value)) { items.Add(value); }
+                
+            }
+
+            categoryBox.ItemsSource = items;
+
+        }
+
+
+        private void filterTask(object sender, RoutedEventArgs e)
+        {
+            FilteredTasks.Clear();
+
+            string selectedValue = categoryBox.SelectedItem?.ToString();
+
+            if (!string.IsNullOrEmpty(selectedValue))
+            {
+
+                foreach (var row in taskList.Items)
+                {
+                    Task rowTask = row as Task;
+
+                    if (rowTask != null && rowTask.Category == selectedValue)
+                    {
+                        FilteredTasks.Add(rowTask);
+                        
+                    }
+                }
+            }
+
         }
 
         public class Task
@@ -67,5 +119,7 @@ namespace lista_zadan
                 TimeLeft = timeleft;
             }
         }
+
+        
     }
 }
