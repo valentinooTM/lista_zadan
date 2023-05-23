@@ -39,20 +39,34 @@ namespace lista_zadan
         {
             try
             {
-                String nazwaZadania = taskName.Text.ToString();
-                String kategoriaZadania = taskCategory.Text.ToString();
+                if (taskName.Text.ToString() != "" && taskCategory.Text.ToString() != "")
+                {
+                    String nazwaZadania = taskName.Text.ToString();
+                    String kategoriaZadania = taskCategory.Text.ToString();
 
-                DateTime terminZadania = (DateTime)taskDeadline.SelectedDate;
+                    DateTime terminZadania = (DateTime)taskDeadline.SelectedDate;
 
-                TimeSpan tS = terminZadania.Subtract(DateTime.Now);
-                int pozostalyCzas = (int)tS.TotalHours;
+                    TimeSpan tS = terminZadania.Subtract(DateTime.Now);
+                    int pozostalyCzas = (int)tS.TotalHours;
+                    if (pozostalyCzas > 0)
+                    {
 
-                Tasks.Add(new Task(numerZadania, nazwaZadania, kategoriaZadania, terminZadania, pozostalyCzas));
-                numerZadania++;
+                        Tasks.Add(new Task(numerZadania, nazwaZadania, kategoriaZadania, terminZadania, pozostalyCzas));
+                        numerZadania++;
 
-                putCategoryIntoComboBox(sender, e);
+                        putCategoryIntoComboBox(sender, e);
 
-                FilteredTasks.Clear();
+                        FilteredTasks.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Podales date wcześniejszą od dzisiaj");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie uzupełniłeś formularza");
+                }
             }catch (InvalidOperationException nullDate)
             {
                 MessageBox.Show("Nie podałeś daty");
