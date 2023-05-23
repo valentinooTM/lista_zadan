@@ -37,20 +37,26 @@ namespace lista_zadan
 
         private void addTask(object sender, RoutedEventArgs e)
         {
-            String nazwaZadania = taskName.Text.ToString(); 
-            String kategoriaZadania = taskCategory.Text.ToString();
+            try
+            {
+                String nazwaZadania = taskName.Text.ToString();
+                String kategoriaZadania = taskCategory.Text.ToString();
 
-            DateTime terminZadania = (DateTime)taskDeadline.SelectedDate;
+                DateTime terminZadania = (DateTime)taskDeadline.SelectedDate;
 
-            TimeSpan tS = terminZadania.Subtract(DateTime.Now);
-            int pozostalyCzas = (int)tS.TotalHours;
+                TimeSpan tS = terminZadania.Subtract(DateTime.Now);
+                int pozostalyCzas = (int)tS.TotalHours;
 
-            Tasks.Add(new Task(numerZadania, nazwaZadania, kategoriaZadania, terminZadania, pozostalyCzas));
-            numerZadania++;
+                Tasks.Add(new Task(numerZadania, nazwaZadania, kategoriaZadania, terminZadania, pozostalyCzas));
+                numerZadania++;
 
-            putCategoryIntoComboBox(sender, e);
+                putCategoryIntoComboBox(sender, e);
 
-            FilteredTasks.Clear();
+                FilteredTasks.Clear();
+            }catch (InvalidOperationException nullDate)
+            {
+                MessageBox.Show("Nie podałeś daty");
+            }
         }   
 
 
@@ -64,7 +70,7 @@ namespace lista_zadan
         private void putCategoryIntoComboBox(object sender, RoutedEventArgs e)
         {
 
-            List<string> items = new List<string>();
+            List<string> items = new List<string>() {"Wszystkie"};
 
             foreach (var row in taskList.Items)
             {
@@ -98,6 +104,7 @@ namespace lista_zadan
                         
                     }
                 }
+
             }
 
         }
