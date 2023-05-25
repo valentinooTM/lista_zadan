@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace lista_zadan
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         int numerZadania = 1;
@@ -101,6 +98,7 @@ namespace lista_zadan
 
         private void filterTask(object sender, RoutedEventArgs e)
         {
+
             FilteredTasks.Clear();
 
             string selectedValue = categoryBox.SelectedItem?.ToString();
@@ -112,14 +110,15 @@ namespace lista_zadan
                 {
                     Task rowTask = row as Task;
 
-                    if (rowTask != null && rowTask.Category == selectedValue)
+                    if ((rowTask != null && rowTask.Category == selectedValue) || selectedValue == "Wszystkie")
                     {
                         FilteredTasks.Add(rowTask);
-                        
                     }
                 }
 
             }
+
+            putCategoryIntoComboBox(sender, e);
 
         }
 

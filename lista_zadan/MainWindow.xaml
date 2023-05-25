@@ -67,20 +67,19 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <ComboBox x:Name="categoryBox" Grid.Row="0" Width="Auto" SelectionChanged="filterTask"></ComboBox>
-                
+
                 <DataGrid x:Name="filteredTaskList" AutoGenerateColumns="False" Grid.Row="1">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nr zadania" Binding ="{Binding Number}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Nazwa zadania" Binding ="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Kategorie" Binding ="{Binding Category}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Termin wykonania" Binding ="{Binding Deadline}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Czas pozostały" Binding ="{Binding TimeLeft}"></DataGridTextColumn>
-                </DataGrid.Columns>
-        
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nr zadania" Binding ="{Binding Number}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nazwa zadania" Binding ="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kategorie" Binding ="{Binding Category}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Termin wykonania" Binding ="{Binding Deadline}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Czas pozostały" Binding ="{Binding TimeLeft}"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </GroupBox>
