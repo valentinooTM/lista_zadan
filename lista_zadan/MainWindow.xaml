@@ -45,7 +45,7 @@
         </GroupBox>
 
         <GroupBox Grid.Column="1" Grid.Row="0" Header="Lista zadań" Background="#4682B4">
-            <DataGrid x:Name="taskList" AutoGenerateColumns="False">
+            <DataGrid x:Name="taskList" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nr zadania" Binding ="{Binding Number}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Nazwa zadania" Binding ="{Binding Name}"></DataGridTextColumn>
@@ -62,7 +62,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        
+
         <GroupBox Grid.Column="1" Grid.Row="1" Header="Filtrowanie zadań" Background="#4682B4">
             <Grid>
                 <Grid.RowDefinitions>
@@ -72,7 +72,7 @@
 
                 <ComboBox x:Name="categoryBox" Grid.Row="0" Width="Auto" SelectionChanged="filterTask"></ComboBox>
 
-                <DataGrid x:Name="filteredTaskList" AutoGenerateColumns="False" Grid.Row="1">
+                <DataGrid x:Name="filteredTaskList" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nr zadania" Binding ="{Binding Number}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nazwa zadania" Binding ="{Binding Name}"></DataGridTextColumn>
@@ -83,8 +83,5 @@
                 </DataGrid>
             </Grid>
         </GroupBox>
-
-
-
     </Grid>
 </Window>
